@@ -1,5 +1,11 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # ignore all node_modules folders and nested folders & files
 =======
 >>>>>>> 46a96bf6070f426e02c0ff5a2f7b1e6ee2fa2db7
 node_modules
+=======
+node_modules
+
+games.json
+>>>>>>> 88eef2979ee6c36c4f11db191bd1a1d22747691c
