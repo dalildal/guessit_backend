@@ -5,6 +5,8 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var gamesRouter = require("./routes/games");
 
+//var io = require('socket.io')(http);
+
 var app = express();
 
 app.use(logger("dev"));
