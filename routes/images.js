@@ -7,9 +7,13 @@ let Image = require("../models/Image.js");
 router.post("/", function (req, res) {  
     let newImage = new Image(req.body);
     console.log("POST new Image : ", newImage);
-    Image.save();
-    return res.json(Image);
-  });
+    newImage.save();
+    return res.json(newImage);
+});
 
+router.get("/",  function (req, res) { 
+    console.log("GET Image : ",Image.randomImage.id);
+    return res.json(Image.randomImage);
+});
 
 module.exports = router;

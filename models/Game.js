@@ -30,8 +30,7 @@ class Game {
 
   static get maxId() {
     let gamesList = getGameListFromFile(FILE_PATH);
-    let maxId = gamesList[gamesList.length -1];
-    return maxId;
+    return gamesList[gamesList.length -1];
   }
 
   static get list() {

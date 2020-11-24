@@ -5,9 +5,7 @@ const FILE_PATH = __dirname + "/../data/images.json";
 class Image {
   constructor(data) {
     this.id = Image.nextImageId();
-    this.nbLetters = data.nbLetters;
-    this.roundTime = data.roundTime;
-    this.nbRound = data.nbRound;
+    this.wordToFind = data.wordToFind;
   }
 
 
@@ -26,6 +24,14 @@ class Image {
   static get(id) {
     let imagesList = getImageListFromFile(FILE_PATH);
     return imagesList.find((image) => image.id == id);
+  }
+
+  static get randomImage() {
+    let imagesList = getImageListFromFile(FILE_PATH);
+    console.log(imagesList.length);
+    let randomId = Math.floor(Math.random() * (imagesList.length));
+    //console.log("randomId : ",randomId)
+    return imagesList[randomId];
   }
 
   static get list() {
