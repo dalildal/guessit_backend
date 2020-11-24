@@ -8,6 +8,8 @@ var app = require('../app');
 var debug = require('debug')('hello-world:server');
 var http = require('http');
 
+
+
 /**
  * Get port from environment and store in Express.
  */
@@ -25,9 +27,15 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
+
+server.listen(3000, function(){
+  console.log("the server is on the port")
+});
 server.on('error', onError);
 server.on('listening', onListening);
+
+
+
 
 /**
  * Normalize a port into a number, string, or false.
@@ -48,6 +56,7 @@ function normalizePort(val) {
 
   return false;
 }
+
 
 /**
  * Event listener for HTTP server "error" event.
