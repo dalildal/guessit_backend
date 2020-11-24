@@ -1,0 +1,9 @@
+### INFO ON VARIABLES : https://github.com/Huachao/vscode-restclient
+@baseUrl = http://localhost:3000/api
+### Inserer une image
+POST {{baseUrl}}/images/
+Content-Type: application/json
+
+{
+    "wordToFind":"hey"
+}

@@ -28,6 +28,11 @@ class Game {
     return gamesList.find((game) => game.id == id);
   }
 
+  static get maxId() {
+    let gamesList = getGameListFromFile(FILE_PATH);
+    return gamesList[gamesList.length -1];
+  }
+
   static get list() {
     return getGameListFromFile(FILE_PATH);
   }
