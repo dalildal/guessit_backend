@@ -57,27 +57,6 @@ app.use(cookieParser());
 app.use("/api/games", gamesRouter);
 app.use("/api/images", imagesRouter);
 
-//const EXPRESS = require('express');
-//let myExpressServerApplication = express();
-let myHttpExpressServer = require('http').createServer(app);
- 
-const io = require("socket.io")(myHttpExpressServer, {
-  cors: {
-    origin: "http://localhost", // Client here is localhost:80
-    methods: ["GET", "POST"]
-  }
-});
- 
-io.on('connection', socket => {
-  console.log('New Socket Connection');
-  socket.emit("broadcast", "New Socket Client : Welcome !");
-});
- 
-myHttpExpressServer.listen(3000, ()  => {
-  console.log('Socket server listening on *:3000');
-});
-
-
 
 module.exports = app;
 
