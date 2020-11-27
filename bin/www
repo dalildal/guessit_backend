@@ -10,10 +10,6 @@ var http = require('http');
 
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> c43f194729be4fafdbc326c4b614e0bc66c9a336
 /**
  * Get port from environment and store in Express.
  */
