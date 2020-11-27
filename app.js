@@ -17,7 +17,7 @@ let myHttpExpressServer = require('http').createServer(app);
  
 const io = require("socket.io")(myHttpExpressServer, {
   cors: {
-    origin: "http://localhost/", // Client here is localhost:80
+    origin: "http://localhost", // Client here is localhost:80
     methods: ["GET", "POST"]
   }
 });
