@@ -27,10 +27,16 @@ const io = require("socket.io")(myHttpExpressServer, {
     methods: ["GET", "POST"]
   }
 });
- 
+
 io.on('connection', socket => {
   console.log('New Socket Connection');
   socket.emit("broadcast", "New Socket Client : Welcome !");
+  console.log("People online : ",io.engine.clientsCount);
+    
+  socket.on('disconnect', function() {
+    console.log("disconnect: ", socket.id);
+    console.log("People online : ",io.engine.clientsCount);
+  });
 });
  
 myHttpExpressServer.listen(3000, ()  => {
