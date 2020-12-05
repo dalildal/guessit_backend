@@ -30,10 +30,11 @@ const io = require("socket.io")(myHttpExpressServer, {
   }
 });
 
+//Quand user se connecte à la page
 io.on('connection', socket => {
   console.log('New Socket Connection');
   
-  
+  //Quand user se connecte à la room  
   socket.on('joinRoom', ({pseudo}) => {
     let user;
     if(pseudo != null){
