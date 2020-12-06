@@ -18,6 +18,7 @@ app.use("/api/games", gamesRouter);
 app.use("/api/images", imagesRouter);
 
 const {userJoin, getCurrentUser, getUserList, userLeave ,formatMessage} = require("./models/TestUser");
+const {getRandomImage} = require("./models/Image.js");
 
 
 let myHttpExpressServer = require('http').createServer(app);
@@ -44,10 +45,13 @@ io.on('connection', socket => {
   
       io.emit('userList', {
         users : getUserList()
-      })
-    }
-    
-  })
+      });
+    }    
+  });
+
+  io.emit('randomImage', {
+    image : getRandomImage()    
+  });
   
   socket.on('chat-message', (msg) => {
     console.log(msg);
@@ -60,7 +64,7 @@ io.on('connection', socket => {
     const user = userLeave(socket.id);
     
       if(user){
-        io.emit('message', formatMessage(user.username,'a user left the chat'));
+        io.emit('message', formatMessage(user.username,'left the chat'));
       }
 
     

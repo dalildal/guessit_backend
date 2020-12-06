@@ -39,6 +39,13 @@ class Image {
   }
 }
 
+  function getRandomImage(){
+    let imagesList = getImageListFromFile(FILE_PATH);
+    let randomId = Math.floor(Math.random() * (imagesList.length));
+    return imagesList[randomId];
+  }
+
+
   function getImageListFromFile(filePath) {
   const fs = require("fs");
   if (!fs.existsSync(filePath)) return [];
@@ -55,4 +62,4 @@ class Image {
   fs.writeFileSync(filePath, data);
   }
 
-module.exports = Image;
+module.exports = {getRandomImage};
