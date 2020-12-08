@@ -90,6 +90,7 @@ io.on('connection', socket => {
     })
     //Socket pour incrementer le round actuel
     socket.on('launch-round', () => {
+      //Gérer le round actuel au niveau du serveur pour éviter d'avoir des bugs de synchro
       io.emit('increment-round');
     })
 
@@ -99,7 +100,6 @@ io.on('connection', socket => {
   })
 });
 
-//show user
 
 
 myHttpExpressServer.listen(3000, ()  => {
