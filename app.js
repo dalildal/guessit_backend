@@ -69,9 +69,33 @@ io.on('connection', socket => {
 
     
   });
-  
-  socket.on('show-user', (usr) => {
-    console.log(usr.name);
+  //On lance la partie
+  socket.on('launch-game', () => {
+    //On crée la liste d'images déjà affichées
+    let imagesAlreadyDisplayed = new Array();
+    //socket pour récupérer une image aléatoire
+    socket.on('launch-image', () => {
+      let image = getRandomImage();
+      while(imagesAlreadyDisplayed.includes(image.id)){
+        console.log("Image Already displayed",image.id);
+        image = getRandomImage();
+      }
+      imagesAlreadyDisplayed.push(image.id);
+      //On envoie l'image aléatoire
+      io.emit('get-image',{image});
+    });
+    //Socket pour reset le timer
+    socket.on('launch-timer', () => {
+      io.emit('reset-timer');
+    })
+    //Socket pour incrementer le round actuel
+    socket.on('launch-round', () => {
+      io.emit('increment-round');
+    })
+
+    socket.on('launch-endGame', () => {
+      io.emit('end-game');
+    })
   })
 });
 
