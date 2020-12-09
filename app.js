@@ -41,7 +41,7 @@ io.on('connection', socket => {
     if(pseudo != null){
       user = userJoin(socket.id,pseudo);
       
-      socket.broadcast.emit('broadcast',formatMessage(user.username," join the room"));
+      socket.broadcast.emit('broadcast',formatMessage(user.username," a rejoint la partie"));
   
       io.emit('userList', {
         users : getUserList()
@@ -64,7 +64,7 @@ io.on('connection', socket => {
     const user = userLeave(socket.id);
     
       if(user){
-        io.emit('message', formatMessage(user.username,'left the chat'));
+        io.emit('message', formatMessage(user.username,' a quitté la partie'));
       }
 
     
@@ -73,30 +73,43 @@ io.on('connection', socket => {
   socket.on('launch-game', () => {
     //On crée la liste d'images déjà affichées
     let imagesAlreadyDisplayed = new Array();
-    //socket pour récupérer une image aléatoire
+    //On récupère les users connectés à la room
+    let users = getUserList();
+    console.log("Lance partie");
+    //Socket pour récupérer une image aléatoire
     socket.on('launch-image', () => {
       let image = getRandomImage();
       while(imagesAlreadyDisplayed.includes(image.id)){
-        console.log("Image Already displayed",image.id);
+        console.log("Image Already displayed",image.wordToFind);
         image = getRandomImage();
       }
       imagesAlreadyDisplayed.push(image.id);
       //On envoie l'image aléatoire
       io.emit('get-image',{image});
     });
+
     //Socket pour reset le timer
     socket.on('launch-timer', () => {
       io.emit('reset-timer');
     })
+
     //Socket pour incrementer le round actuel
     socket.on('launch-round', () => {
-      //Gérer le round actuel au niveau du serveur pour éviter d'avoir des bugs de synchro
       io.emit('increment-round');
     })
 
     socket.on('launch-endGame', () => {
-      io.emit('end-game');
+      io.emit('end-game',users);
     })
+
+    socket.on('launch-goodAnswer', (userId) => {
+      users.forEach(element => {
+        if(element.id === userId){
+          element.correctAnswers++;
+        }
+      });
+    });
+
   })
 });
 

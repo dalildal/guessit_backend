@@ -1,7 +1,11 @@
 const users = [];
 
 function userJoin(id, username){
-    const user = {id, username};
+    const user = {
+        id,
+        username,
+        correctAnswers : 0
+    };
 
     users.push(user);
 
