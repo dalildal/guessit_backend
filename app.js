@@ -17,7 +17,8 @@ app.use(cookieParser());
 app.use("/api/games", gamesRouter);
 app.use("/api/images", imagesRouter);
 
-const {userJoin, getCurrentUser, getUserList, userLeave ,formatMessage} = require("./models/TestUser");
+const {userJoin, getCurrentUser, getUserList, userLeave ,formatMessage, /*addImage,
+getImagesAlreadyDisplayed*/} = require("./models/TestUser");
 const {getRandomImage} = require("./models/Image.js");
 
 
@@ -84,6 +85,8 @@ io.on('connection', socket => {
         image = getRandomImage();
       }
       imagesAlreadyDisplayed.push(image.id);
+      console.log(imagesAlreadyDisplayed);
+      console.log(image.wordToFind);
       //On envoie l'image aléatoire
       io.emit('get-image',{image});
     });

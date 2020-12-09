@@ -1,4 +1,5 @@
 const users = [];
+const imagesAlreadyDisplayed = [];
 
 function userJoin(id, username){
     const user = {
@@ -39,10 +40,20 @@ function formatMessage(username, text){
     }
 }
 
+// let addImage = (image) => {
+//     imagesAlreadyDisplayed.push(image);
+// }
+
+// let getImagesAlreadyDisplayed = () => {
+//     return imagesAlreadyDisplayed;
+// }
+
 module.exports = {
     userJoin,
     getCurrentUser,
     getUserList,
     userLeave,
     formatMessage,
+    // addImage,
+    // getImagesAlreadyDisplayed,
 };
