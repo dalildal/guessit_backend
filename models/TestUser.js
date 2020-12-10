@@ -40,13 +40,13 @@ function formatMessage(username, text){
     }
 }
 
-// let addImage = (image) => {
-//     imagesAlreadyDisplayed.push(image);
-// }
+let addImage = (image) => {
+    imagesAlreadyDisplayed.push(image);
+}
 
-// let getImagesAlreadyDisplayed = () => {
-//     return imagesAlreadyDisplayed;
-// }
+let getImagesAlreadyDisplayed = () => {
+    return imagesAlreadyDisplayed;
+ }
 
 module.exports = {
     userJoin,
@@ -54,6 +54,6 @@ module.exports = {
     getUserList,
     userLeave,
     formatMessage,
-    // addImage,
-    // getImagesAlreadyDisplayed,
+    addImage,
+    getImagesAlreadyDisplayed,
 };

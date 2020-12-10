@@ -17,8 +17,8 @@ app.use(cookieParser());
 app.use("/api/games", gamesRouter);
 app.use("/api/images", imagesRouter);
 
-const {userJoin, getCurrentUser, getUserList, userLeave ,formatMessage, /*addImage,
-getImagesAlreadyDisplayed*/} = require("./models/TestUser");
+const {userJoin, getCurrentUser, getUserList, userLeave ,formatMessage, addImage,
+getImagesAlreadyDisplayed} = require("./models/TestUser");
 const {getRandomImage} = require("./models/Image.js");
 
 
@@ -50,9 +50,6 @@ io.on('connection', socket => {
     }    
   });
 
-  io.emit('randomImage', {
-    image : getRandomImage()    
-  });
   
   socket.on('chat-message', (msg) => {
     console.log(msg);
@@ -72,21 +69,19 @@ io.on('connection', socket => {
   });
   //On lance la partie
   socket.on('launch-game', () => {
-    //On crée la liste d'images déjà affichées
-    let imagesAlreadyDisplayed = new Array();
     //On récupère les users connectés à la room
     let users = getUserList();
     console.log("Lance partie");
     //Socket pour récupérer une image aléatoire
     socket.on('launch-image', () => {
       let image = getRandomImage();
-      while(imagesAlreadyDisplayed.includes(image.id)){
+      while(getImagesAlreadyDisplayed().includes(image.id)){
         console.log("Image Already displayed",image.wordToFind);
         image = getRandomImage();
       }
-      imagesAlreadyDisplayed.push(image.id);
-      console.log(imagesAlreadyDisplayed);
-      console.log(image.wordToFind);
+      addImage(image.id);
+      console.log("liste Image : ",getImagesAlreadyDisplayed());
+      console.log("Mot à trouver :",image.wordToFind);
       //On envoie l'image aléatoire
       io.emit('get-image',{image});
     });
