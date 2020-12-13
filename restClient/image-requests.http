@@ -5,5 +5,5 @@ POST {{baseUrl}}/images/
 Content-Type: application/json
 
 {
-    "wordToFind":"pile"
+    "wordToFind":"voiture"
 }
