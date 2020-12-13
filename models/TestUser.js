@@ -1,5 +1,5 @@
 const users = [];
-const imagesAlreadyDisplayed = [];
+let imagesAlreadyDisplayed = [];
 
 function userJoin(id, username){
     const user = {
@@ -46,7 +46,11 @@ let addImage = (image) => {
 
 let getImagesAlreadyDisplayed = () => {
     return imagesAlreadyDisplayed;
- }
+}
+
+let initImagesAlreadyDisplayed = () => {
+    imagesAlreadyDisplayed = [];
+}
 
 module.exports = {
     userJoin,
@@ -56,4 +60,5 @@ module.exports = {
     formatMessage,
     addImage,
     getImagesAlreadyDisplayed,
+    initImagesAlreadyDisplayed,
 };

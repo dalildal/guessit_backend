@@ -18,7 +18,7 @@ app.use("/api/games", gamesRouter);
 app.use("/api/images", imagesRouter);
 
 const {userJoin, getCurrentUser, getUserList, userLeave ,formatMessage, addImage,
-getImagesAlreadyDisplayed} = require("./models/TestUser");
+getImagesAlreadyDisplayed,initImagesAlreadyDisplayed} = require("./models/TestUser");
 const {getRandomImage} = require("./models/Image.js");
 
 
@@ -50,28 +50,36 @@ io.on('connection', socket => {
     }    
   });
 
-  
+  //Envoie aux clients le message qu'un client a envoyé
   socket.on('chat-message', (msg) => {
     console.log(msg);
     const user = getCurrentUser(socket.id);
     io.emit('message', formatMessage(user.username,msg));
   })
+
+  //Envoie aux clients que le temps est écoulé
+  socket.on('elapse-time', (msg) => {
+    console.log(msg);
+    io.emit('message',msg);
+  })
   
   //when user disconnect
   socket.on('disconnect', () =>{
     const user = userLeave(socket.id);
-    
+  
       if(user){
         io.emit('message', formatMessage(user.username,' a quitté la partie'));
-      }
-
-    
+      }  
   });
+
   //On lance la partie
   socket.on('launch-game', () => {
     //On récupère les users connectés à la room
     let users = getUserList();
+    //On initialise la liste d'images déjà affichées
+    initImagesAlreadyDisplayed();
     console.log("Lance partie");
+
     //Socket pour récupérer une image aléatoire
     socket.on('launch-image', () => {
       let image = getRandomImage();
@@ -95,11 +103,14 @@ io.on('connection', socket => {
     socket.on('launch-round', () => {
       io.emit('increment-round');
     })
-
+    
+    //Socket pour afficher la fin de la partie
     socket.on('launch-endGame', () => {
+      //On envoie la liste des users qui contient le nb de reponses correctes par user
       io.emit('end-game',users);
     })
 
+    //On incremente le nombre de bonnes reponses du user qui a trouvé le bon mot
     socket.on('launch-goodAnswer', (userId) => {
       users.forEach(element => {
         if(element.id === userId){
@@ -110,8 +121,6 @@ io.on('connection', socket => {
 
   })
 });
-
-
 
 myHttpExpressServer.listen(3000, ()  => {
   console.log('Socket server listening on *:3000');
