@@ -1,2 +1,4 @@
 # guessit_backend
-Launch the backend with the command 'node app.js'
+Lancez le backend avec la commande 'node app.js'
+
+On n'a pas mis le fichier images.json dans le .gitignore car vous en avez besoin pour jouer.
